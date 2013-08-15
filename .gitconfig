@@ -1,0 +1,35 @@
+[user]
+    email = farrrr@gmail.com
+    name = Far Tseng
+
+[color]
+    editor = vim
+    whitespace = trailing-space,space-before-tab
+    ui = true
+    diff = auto
+    status = auto
+    branch = auto
+    log = auto
+
+[alias]
+    gl = log -16 --color=always --all --graph --topo-order --pretty='format: %Cgreen%h%Creset %s%Cred%d%Creset%n'
+    merge = merge --no-ff
+    up = merge --ff-only
+
+    co = checkout
+    ci = commit -s
+
+    st = status
+    stat = status
+
+    br = branch
+
+    fo = fetch origin
+    fu = fetch upstream
+    po = push origin
+
+[diff]
+    #external = git_diff_wrapper
+
+[pager]
+    diff =
