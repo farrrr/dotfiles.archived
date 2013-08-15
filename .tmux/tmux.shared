@@ -1,0 +1,65 @@
+# shared amongst all tmux
+# number windows from 1
+set -g base-index 1
+
+# don't wait after escape
+set -s escape-time 0
+
+
+## for mouse
+set -g mode-mouse on
+set -g mouse-resize-pane on
+set -g mouse-select-pane on
+set -g mouse-select-window on
+
+# # setting up status bar
+# # Theme
+
+## default statusbar colors
+#set-option -g status-bg colour235 #base02
+#set-option -g status-fg colour136 #yellow
+#set-option -g status-attr default
+#set -g status-interval 5
+#set -g status-justify centre
+#set -g status-left-length 100
+#set -g status-right-length 100
+#set -g status-left '#[bg=colour33,fg=colour234] #(whoami)@#h #[fg=colour33,bg=colour235]⮀'
+#set -g status-right '#[bg=colour235,fg=colour24]⮂#[fg=colour254,bg=colour24] #(date \"+%Y.%m.%d %I:%M %p\") '
+#setw -g window-status-format '#[fg=yellow]#F#[default]#[fg=colour240][#[fg=colour244] #I #W #[fg=colour240]]#[default]'
+#setw -g window-status-current-format '#[fg=yellow]#F#[default]#[fg=colour254][#[fg=colour136] #I #W #[fg=colour254]]#[default]'
+## default window title colors
+#set-window-option -g window-status-fg colour244
+#set-window-option -g window-status-bg default
+##set-window-option -g window-status-attr dim
+#
+## active window title colors
+#set-window-option -g window-status-current-fg colour166 #orange
+#set-window-option -g window-status-current-bg default
+##set-window-option -g window-status-current-attr bright
+
+# pane border
+set-option -g pane-border-fg colour235 #base02
+set-option -g pane-active-border-fg colour240 #base01
+
+# message text
+set-option -g message-bg colour235 #base02
+set-option -g message-fg colour166 #orange
+
+# pane number display
+set-option -g display-panes-active-colour colour33 #blue
+set-option -g display-panes-colour colour166 #orange
+
+# clock
+set-window-option -g clock-mode-colour colour64 #green
+
+# monitor activity
+setw -g monitor-activity off
+set -g visual-activity off
+
+
+# resize panel
+# Keys for resize panel
+bind -n F1 resizep -U 1   # up
+bind -n F2 resizep -D 1  # down
+bind -n F3 resizep -L 1  # left
+bind -n F4 resizep -R 1  # right
