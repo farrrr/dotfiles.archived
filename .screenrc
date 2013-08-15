@@ -1,0 +1,88 @@
+#
+# File:           $HOME/.screenrc
+# written by:     far@pixnet.tw
+# ref:            http://www.guckes.net/Setup/screenrc
+#
+
+# StartUp of programs in an extra window
+# screen -t MAIL      0 mutt
+# screen -t EDIT      1 vim
+
+autodetach        on    # automatically detach on handup
+crlf              off   # no crlf for end-of-lines
+deflogin          off   # default setting for login
+defsilence        off   # default setting for silence
+hardcopy_append   on    # default setting for hardcopy
+ignorecase        on    # ignore case in searches
+startup_message   off   # NO startup_message
+defutf8           on    # default setting for utf8
+vbell             off   # be silent on bells
+defscrollback     5000
+nonblock          23    # unblock display after N secs of refusing output
+silencewait       15
+shell             bash  # Default process started in screen's windows.
+defencoding       utf8
+bind b encoding big5 utf8
+bind u encoding utf8 utf8
+bind @ windowlist -m
+idle              3000 lockscreen
+
+
+# Color Settings
+# COLOR:  colors codes are combinations of
+# [attribute modifier] [color description],
+# eg "%{ambf}" where
+# a=attribute,  m=modifier, and
+# b=background, f=foreground.
+# the manual talks of "attribute/color modifiers".
+# see the manual, section "STRING ESCAPES".
+#
+# Color table:
+# 0 Black             .    leave color unchanged
+# 1 Red               b    blue
+# 2 Green             c    cyan
+# 3 Brown / yellow    d    default color
+# 4 Blue              g    green           b    bold
+# 5 Purple            k    blacK           B    blinking
+# 6 Cyan              m    magenta         d    dim
+# 7 White             r    red             r    reverse
+# 8 unused/illegal    w    white           s    standout
+# 9 transparent       y    yellow          u    underline
+caption always "%{dk} %=%{dk}%{+b K}>%{+d W} %-w%{dB}%{W}%n %t%{dk}%{W}%+w %{-d K}<%{W}%="
+hardstatus alwayslastline "%{br wB} load{%l} %{kk} %=%{C}$USER@%{W}%H %{kk}%{wB}    %Y.%m.%d %C %A "
+sorendition     kG # black on bold green
+activity        '[%c] %n activity!'
+bell_msg        '[%c] window %n is active'
+pow_detach_msg  'BYE'
+vbell_msg       ' *beep* '
+
+# 256color
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+defbce "on"
+
+
+#
+# other configs
+# bindkey:
+#   - key
+# 	Alt  (^[)
+#	Ctrl (^S)
+# 	F1, F2 (-k k1, -k k2)
+#   - function
+#	split : 水平分割視窗
+#	split -v : 垂直分割視窗
+#	remove : 關閉當前分割視窗
+#	focus : 切換當前分割視窗
+#	screen : 新增子視窗
+#	title : 設定當前視窗標題
+#	copy : 進入複製/捲動模式
+#	prev : 切換上一個視窗
+#	next : 切換下一個視窗
+#	select num : 選擇 num 視窗
+# example:
+#	bindkey "^[d" split
+#-----------------------------------------------
+# screen -t blah 	0 ./blash/aaaa.sh
+# 將 title 為 blah 的視窗在開啟 screen 時，開在第 0 個視窗
+# 並執行 ./blash/aaaa.sh
+#---------------------------------------------- 
