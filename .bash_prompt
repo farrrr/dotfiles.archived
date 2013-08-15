@@ -1,0 +1,72 @@
+# vim: syntax=sh
+if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
+	export TERM=gnome-256color
+elif infocmp xterm-256color >/dev/null 2>&1; then
+	export TERM=xterm-256color
+fi
+
+function git_branch {
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || return;
+    echo "("${ref#refs/heads/}") ";
+}
+
+function git_since_last_commit {
+    now=`date +%s`;
+    last_commit=$(git log --pretty=format:%at -1 2> /dev/null) || return;
+    seconds_since_last_commit=$((now-last_commit));
+    minutes_since_last_commit=$((seconds_since_last_commit/60));
+    hours_since_last_commit=$((minutes_since_last_commit/60));
+    minutes_since_last_commit=$((minutes_since_last_commit%60));
+    echo "${hours_since_last_commit}h${minutes_since_last_commit}m ";
+}
+
+function git_diff() {
+    git diff --no-ext-diff -w "$@" | vim -R -
+}
+
+#
+# PROMPT
+# more info:
+# bash manual, section PROMPTING
+# $ man bash
+# /^PROMPTING
+#
+# for the prompt there are quite a few 
+# backslash-escaped special characters:
+#       \@!#$[] ADHTVW adehjlnrstuvw
+# here are the most commonly used ones:
+# \u    username
+# \h    hostname (without the domain)
+# \H    full hostname, ie with domain
+# \v    version (short)
+# \V    version + patch level
+# \w    full working directory
+# \W    basename of working directory
+#
+# 37 = white      33 = yellow
+# 30 = black      34 = blue
+# 31 = red        35 = pink
+# 32 = green      36 = cyan
+#
+RED="\[\033[31m\]"
+GREEN="\[\033[32m\]"
+YELLOW="\[\033[33m\]"
+BLUE="\[\033[34m\]"
+PINK="\[\033[35m\]"
+CYAN="\[\033[36m\]"
+WHITE="\[\033[37m\]"
+BOLD="\[\]"
+RESET="\[\033[m\]"
+
+export RED
+export GREEN
+export YELLOW
+export BLUE
+export PINK
+export CYAN
+export WHITE
+export BOLD
+export RESET
+
+export PS1="${CYAN}\A${RESET} ${GREEN}\u${RESET}@${CYAN}\h${RESET}:[${GREEN}\w${RESET}] ${PINK}\$(git_branch) ${YELLOW}\$(git_since_last_commit)${RESET}~\n$ "
+export PS2="${BLUE}→ ${RESET}"

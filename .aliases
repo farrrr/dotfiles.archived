@@ -1,0 +1,39 @@
+# vim: syntax=sh
+# Alias
+alias less="/usr/bin/less -EmrSw"
+alias more="less"
+alias diff="colordiff"
+alias irssi="export TERM=screen-256color;irssi"
+alias cd..="cd .."
+alias cd...="cd ../.."
+alias sshp="ssh -p 222"
+alias jsl="$HOME/jslint.vim/bin/jslint"
+#alias tmux="TERM=screen-256color-bce tmux"
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+
+
+# for different OS
+operatesystem=$(uname)
+
+case $operatesystem in
+  "Linux")
+    alias ls='ls -aF --color'
+    alias ll='ls -al --color | less -r'
+    alias fixlocale="sudo locale-gen --lang en_US.UTF-8;sudo locale-gen;"
+    alias top="htop"
+    ;;
+  "Darwin")
+    alias ls="ls -aFG"
+    alias ll='ls -alG --color | less -r'
+    alias youtube="sudo ipfw add reject src-ip 210.71.222.0/24 in"
+    alias cleandns="sudo killall -HUP mDNSResponder"
+    alias cleands='sudo find / -name ".DS_Store" -depth -exec rm {} \;'
+    alias i5="piconv -f big5 -t utf8 "
+    export PATH="$(brew --prefix josegonzalez/php/php54)/bin:$PATH" # for brew php
+    export PATH="$PATH:$HOME/Library/Python/2.7/bin"
+    ;;
+  "FreeBSD")
+    alias ls="ls -aFGg"
+    alias ll="ls -aGg | less -r"
+    ;;
+esac
