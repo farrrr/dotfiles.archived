@@ -21,12 +21,33 @@ lnif() {
     fi
 }
 
+readFileLink() {
+    TARGET_FILE=$1
+
+    cd `dirname $TARGET_FILE`
+    TARGET_FILE=`basename $TARGET_FILE`
+
+    # Iterate down a (possible) chain of symlinks
+    while [ -L "$TARGET_FILE" ]
+    do
+        TARGET_FILE=`readlink $TARGET_FILE`
+        cd `dirname $TARGET_FILE`
+        TARGET_FILE=`basename $TARGET_FILE`
+    done
+
+    # Compute the canonicalized name by finding the physical path 
+    # for the directory we're in and appending the target file.
+    PHYS_DIR=`pwd -P`
+    RESULT=$PHYS_DIR/$TARGET_FILE
+    echo $RESULT
+}
+
 echo 'Installing dotfiles'
 today=`date +%Y%m%d`
 
 for i in $HOME/.bashrc $HOME/.aliases $HOME/.bash_prompt $HOME/.bash_profile $HOME/.functions $HOME/.exports $HOME/.gitconfig $HOME/.zshrc $HOME/.osx $HOME/.screenrc $HOME/.tmux.conf; do [ -e $i ] && [ ! -L $i ] && mv $i $i.$today; done
 
-script="$(readlink -f $0)"
+script="$(readFileLink $0)"
 dotfilepath="$(dirname $script)"
 
 echo 'setting up symlinks'
