@@ -24,7 +24,6 @@ plugins=(git bower bundler cap composer tmux)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-[ -f /etc/profile.d/rvm.sh ] && source /etc/profile.d/rvm.sh
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 # Load RVM into a shell session *as a function*
 
@@ -42,3 +41,4 @@ for file in ~/.{path,exports,aliases,functions,extra}; do
     [ -f "$file" ] && source "$file"
 done
 unset file
+[[ -s /etc/profile.d/rvm.sh ]] && source /etc/profile.d/rvm.sh
