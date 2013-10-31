@@ -108,7 +108,8 @@ function server() {
 # (Requires PHP 5.4.0+.)
 function phpserver() {
 	local port="${1:-4000}"
-	local ip=$(ipconfig getifaddr en1)
+	#local ip="$2:-$(ifconfig getifaddr en1)"
+    local ip="$2"
 	sleep 1 && open "http://${ip}:${port}/" &
 	php -S "${ip}:${port}"
 }
