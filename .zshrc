@@ -19,7 +19,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git bower bundler cap composer tmux)
+plugins=(git bower bundler cap composer tmux git-extras colored-man extract laravel)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -33,6 +33,7 @@ ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOSTART_ONCE=true
 ZSH_TMUX_AUTOCONNECT=true
 ZSH_TMUX_AUTOQUIT=false
+ZSH_TMUX_FIXTERM=true
 
 # Load the shell dotfiles. and then some:
 # * ~/.path can be used to extend `$PATH`.
