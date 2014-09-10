@@ -65,9 +65,13 @@ do_backup() {
 
 ## main()
 endpath="$app_dir"
-for settings in ".tmux" ".gitconfig" ".osx" ".screenrc" ".tmux.conf" ".zshrc"
+for settings in ".gitconfig" ".osx" ".screenrc" ".tmux.conf"
 do
     do_backup "$settings"
     lnif "$endpath/$settings"   "$HOME/$settings"
     success "creating symlink $settings"
 done
+
+do_backup "powerline"
+lnif "$endpath/powerline" "$HOME/.config/powerline"
+success "creating symlink powerline"
