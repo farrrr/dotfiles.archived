@@ -65,24 +65,24 @@ defbce "on"
 # other configs
 # bindkey:
 #   - key
-# 	Alt  (^[)
-#	Ctrl (^S)
-# 	F1, F2 (-k k1, -k k2)
+#   Alt  (^[)
+#   Ctrl (^S)
+#   F1, F2 (-k k1, -k k2)
 #   - function
-#	split : 水平分割視窗
-#	split -v : 垂直分割視窗
-#	remove : 關閉當前分割視窗
-#	focus : 切換當前分割視窗
-#	screen : 新增子視窗
-#	title : 設定當前視窗標題
-#	copy : 進入複製/捲動模式
-#	prev : 切換上一個視窗
-#	next : 切換下一個視窗
-#	select num : 選擇 num 視窗
+#   split : 水平分割視窗
+#   split -v : 垂直分割視窗
+#   remove : 關閉當前分割視窗
+#   focus : 切換當前分割視窗
+#   screen : 新增子視窗
+#   title : 設定當前視窗標題
+#   copy : 進入複製/捲動模式
+#   prev : 切換上一個視窗
+#   next : 切換下一個視窗
+#   select num : 選擇 num 視窗
 # example:
-#	bindkey "^[d" split
+#   bindkey "^[d" split
 #-----------------------------------------------
-# screen -t blah 	0 ./blash/aaaa.sh
+# screen -t blah    0 ./blash/aaaa.sh
 # 將 title 為 blah 的視窗在開啟 screen 時，開在第 0 個視窗
 # 並執行 ./blash/aaaa.sh
-#---------------------------------------------- 
+#-----------------------------------------------
