@@ -99,6 +99,28 @@ clone_repo() {
 
 ## main()
 endpath="$app_dir"
+
+while true
+do
+    read -p "Do you wanna clone Repo over SSH? [Y/N]" RESP
+    case $RESP
+        in
+        [yY])
+            git_uri="git@github.com:$git_repo"
+            break
+            ;;
+        [nN])
+            git_uri="https://github.com/$git_repo"
+            break
+            ;;
+        *)
+            msg "Please enter Y or N"
+            ;;
+    esac
+done
+
+clone_repo  "Successfully cloned $app_name"
+
 for settings in ".gitconfig" ".osx" ".screenrc" ".tmux.conf"
 do
     do_backup "$settings"
