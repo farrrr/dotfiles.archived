@@ -3,6 +3,7 @@
 ## setup parameters
 app_name='dotfiles'
 app_dir="$HOME/.dotfiles"
+debug_mode='0'
 
 ## basic setup tools
 msg() {
@@ -62,6 +63,11 @@ do_backup() {
         debug
     fi
 }
+create_config() {
+    if [! -e "$HOME/.config" ]; then
+        mkdir -p $HOME/.config
+    fi
+}
 
 ## main()
 endpath="$app_dir"
@@ -73,5 +79,6 @@ do
 done
 
 do_backup "powerline"
+create_config
 lnif "$endpath/powerline" "$HOME/.config/powerline"
 success "creating symlink powerline"
