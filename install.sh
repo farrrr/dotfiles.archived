@@ -3,6 +3,8 @@
 ## setup parameters
 app_name='dotfiles'
 app_dir="$HOME/.dotfiles"
+[ -z "$git_repo" ] && git_repo='farrrr/dotfiles'
+git_branch='master'
 debug_mode='0'
 
 ## basic setup tools
@@ -64,8 +66,34 @@ do_backup() {
     fi
 }
 create_config() {
-    if [! -e "$HOME/.config" ]; then
+    if [ ! -e "$HOME/.config" ]; then
         mkdir -p $HOME/.config
+    fi
+}
+
+upgrade_repo() {
+      msg "trying to update $1"
+
+      if [ "$1" = "$app_name" ]; then
+          cd "$app_dir" &&
+          git pull origin "$git_branch"
+      fi
+
+      ret="$?"
+      success "$2"
+      debug
+}
+
+clone_repo() {
+    program_exists "git" "Sorry, we cannot continue without GIT, please install it first."
+
+    if [ ! -e "$app_dir" ]; then
+        git clone --recursive -b "$git_branch" "$git_uri" "$app_dir"
+        ret="$?"
+        success "$1"
+        debug
+    else
+        upgrade_repo "$app_name"    "Successfully updated $app_name"
     fi
 }
 
