@@ -49,7 +49,11 @@ do
         case $RESP
             in
             [yY])
-                sh <(curl https://j.mp/"${repos}" -L)
+                cmd="curl -L https://j.mp/${repos}"
+                TEMPFILE=$(mktemp /tmp/my.XXXXX)
+                curl -L https://j.mp/$repos > $TEMPFILE
+                sh $TEMPFILE
+                rm $TEMPFILE
                 break
                 ;;
             [nN])
