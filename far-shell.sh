@@ -49,7 +49,7 @@ do
         case $RESP
             in
             [yY])
-                sh <(curl https://j.mp/${repos} -L)
+                sh <(curl https://j.mp/"${repos}" -L)
                 break
                 ;;
             [nN])
