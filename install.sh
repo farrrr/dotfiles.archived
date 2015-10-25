@@ -1,25 +1,26 @@
 #!/usr/bin/env bash
 
-## setup parameters
+# ----- Setup Parameters -----
 app_name='dotfiles'
-app_dir="$HOME/.dotfiles"
-[ -z "$git_repo" ] && git_repo='farrrr/dotfiles'
-git_branch='master'
-debug_mode='0'
+[ -z "$APP_PATH" ] && APP_PATH="$HOME/.dotfiles"
+[ -z "$REPO_URI" ] && REPO_URL='https://github.com/farrrr/dotfiles.git'
+[ -z "$REPO_BRANCH" ] && REPO_BRANCH='master'
+debug_mode='1'
+maintainer='far'
 
-## basic setup tools
+# ----- Basic Setup Tools -----
 msg() {
     printf '%b\n' "$1" >&2
 }
 
 success() {
     if [ "$ret" -eq '0' ]; then
-        msg "\e[32m[✔]\e[0m ${1}${2}"
+        msg "\33[32m[✔]\33[0m ${1}${2}"
     fi
 }
 
 error() {
-    msg "\e[31m[✘]\e[0m ${1}${2}"
+    msg "\33[31m[✘]\33[0m ${1}${2}"
     exit 1
 }
 
@@ -31,104 +32,132 @@ debug() {
 
 program_exists() {
     local ret='0'
-    type $1 >/dev/null 2>&1 || { local ret='1'; }
+    command -v $1 >/dev/null 2>&1 || { local ret='1'; }
+
+    # fail on non-zero return value
+    if [ "$ret" -ne 0 ]; then
+        return 1
+    fi
+
+    return 0
+}
+
+program_must_exist() {
+    program_exists $1
 
     # throw error on non-zero return value
-    if [ ! "$ret" -eq '0' ]; then
-        error "$2"
+    if [ "$?" -ne 0 ]; then
+        error "You must have '$1' installed to continue."
     fi
 }
 
-## setup functions
-lnif() {
-    if [ ! -e "$2" ]; then
-        ln -s "$1" "$2"
+variable_set() {
+    if [ -z "$1" ]; then
+        error "You must have your HOME environmental variable set to continue."
     fi
+}
 
-    if [ -L "$2" ]; then
-        if [ -d "$2" ]; then
-            rm "$2"
-        fi
+lnif() {
+    if [ -e "$1" ]; then
         ln -sf "$1" "$2"
     fi
-
     ret="$?"
     debug
 }
 
+is_maintainer() {
+    if [ $USER = $maintainer ]; then
+        return 1
+    fi
+
+    return 0
+}
+
+# ----- Setup Functions -----
 do_backup() {
-    if [ -e "$2" ]; then
+    local need_backup=0
+    for i in $*; do
+        [ -e "$i" ] && need_backup=1
+    done
+
+    if [ $need_backup -eq 1 ]; then
+        msg 'Attempting to back up your origin configuration.'
         today=`date +%Y%m%d_%s`
-        [ -e "$2" ] && [ ! -L "$2" ] && mv "$2" "$2.today";
+        for i in $*; do
+            [ -e "$i" ] && [ ! -L "$i" ] && mv -v "$i" "$i.today";
+        done
         ret="$?"
-        success "$1"
-        debug
-    fi
-}
-create_config() {
-    if [ ! -e "$HOME/.config" ]; then
-        mkdir -p $HOME/.config
+        success "Your original configuration has been backed up."
+        debu
     fi
 }
 
-upgrade_repo() {
-      msg "trying to update $1"
+sync_repo() {
+    local repo_path="$1"
+    local repo_uri="$2"
+    local repo_branch="$3"
+    local repo_name="$4"
 
-      if [ "$1" = "$app_name" ]; then
-          cd "$app_dir" &&
-          git pull origin "$git_branch"
-      fi
+    msg "Trying to update $repo_name"
 
-      ret="$?"
-      success "$2"
-      debug
-}
-
-clone_repo() {
-    program_exists "git" "Sorry, we cannot continue without GIT, please install it first."
-
-    if [ ! -e "$app_dir" ]; then
-        git clone --recursive -b "$git_branch" "$git_uri" "$app_dir"
+    if [ ! -e "$repo_path" ]; then
+        mkdir -p "$repo_path"
+        git clone -b "$repo_branch" "$repo_uri" "$repo_path"
         ret="$?"
-        success "$1"
-        debug
+        success "Successfully cloned $repo_name."
     else
-        upgrade_repo "$app_name"    "Successfully updated $app_name"
+        cd "$repo_path" && git pull origin "$repo_branch"
+        ret="$?"
+        success "Successfully updated $repo_name"
+    fi
+
+    debug
+}
+
+create_symlinks() {
+    local source_path="$1"
+    local target_path="$2"
+
+    lnif "$source_path/.tmux.conf"      "$target_path/.tmux.conf"
+    lnif "$source_path/.zshrc"          "$target_path/.zshrc"
+    lnif "$source_path/.gitconfig"      "$target_path/.git"
+
+    if is_maintainer; then
+        lnif "$source_path/.gitconfig.far"  "$target_path/.gitconfig.far"
+    fi
+
+    touch  "$target_path/.gitconfig.local"
+
+    ret="$?"
+    success "Setting up dotfiles symlinks."
+    debug
+}
+
+create_config_dir() {
+    if [ ! -d "$HOME/.config" ]; then
+        mkdir "$HOME/.config"
     fi
 }
 
-## main()
-endpath="$app_dir"
+setup_powerline() {
+    create_config_dir
+    lnif "$APP_PATH/powerline" "$HOME/.config/powerline"
+}
 
-while true
-do
-    read -p "Do you wanna clone Repo over SSH? [Y/N]" RESP
-    case $RESP
-        in
-        [yY])
-            git_uri="git@github.com:$git_repo"
-            break
-            ;;
-        [nN])
-            git_uri="https://github.com/$git_repo"
-            break
-            ;;
-        *)
-            msg "Please enter Y or N"
-            ;;
-    esac
-done
+# ----- Main() -----
+variable_set "$HOME"
+program_must_exist "git"
 
-clone_repo  "Successfully cloned $app_name"
+do_backup           "$HOME/.tmux.conf" \
+                    "$HOME/.zshrc" \
+                    "$HOME/.gitconfig"
 
-for settings in ".gitconfig" ".osx" ".screenrc" ".tmux.conf"
-do
-    do_backup "$settings"
-    lnif "$endpath/$settings"   "$HOME/$settings"
-    success "creating symlink $settings"
-done
+sync_repo           "$APP_PATH" \
+                    "$REPO_URI" \
+                    "$REPO_BRANCH" \
+                    "$app_name"
 
-do_backup "powerline"
-create_config
-lnif "$endpath/powerline" "$HOME/.config/powerline"
-success "creating symlink powerline"
+create_symlinks     "$APP_PATH" \
+                    "$HOME"
+
+setup_powerline
