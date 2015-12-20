@@ -88,7 +88,7 @@ do_backup() {
         done
         ret="$?"
         success "Your original configuration has been backed up."
-        debu
+        debug
     fi
 }
 
@@ -120,7 +120,7 @@ create_symlinks() {
 
     lnif "$source_path/.tmux.conf"      "$target_path/.tmux.conf"
     lnif "$source_path/.zshrc"          "$target_path/.zshrc"
-    lnif "$source_path/.gitconfig"      "$target_path/.git"
+    lnif "$source_path/.gitconfig"      "$target_path/.gitconfig"
 
     if is_maintainer; then
         lnif "$source_path/.gitconfig.far"  "$target_path/.gitconfig.far"
