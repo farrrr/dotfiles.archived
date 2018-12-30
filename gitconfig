@@ -1,0 +1,41 @@
+[color]
+    editor = vim
+
+[color]
+    # Treat spaces before tabs, lines that are indented with 8 or more spaces, and all kinds of trailing whitespace as an error
+    whitespace = trailing-space,space-before-tab
+    ui = true
+    diff = auto
+    status = auto
+    branch = auto
+    log = auto
+
+[alias]
+    gl = log -16 --color=always --all --graph --topo-order --pretty='format: %Cgreen%h%Creset %s%Cred%d%Creset%n'
+    merge = merge --no-ff
+    up = merge --ff-only
+
+    co = checkout
+    ci = commit -s
+
+    st = status
+    stat = status
+
+    br = branch
+
+    fo = fetch origin
+    fu = fetch upstream
+    po = push origin
+
+[diff]
+    #external = git_diff_wrapper
+
+[pager]
+    diff =
+
+[include]
+    path = ~/.gitconfig.local
+    path = ~/.gitconfig.far
+[user]
+	name = Far Tseng
+	email = farrrr@gmail.com
