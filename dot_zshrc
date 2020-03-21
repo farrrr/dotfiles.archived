@@ -46,7 +46,6 @@ zplug plugins/react-native, from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
 zplug plugins/ssh-agent, from:oh-my-zsh
 zplug plugins/sudo, from:oh-my-zsh
 zplug plugins/supervisor, from:oh-my-zsh
-zplug plugins/tmux, from:oh-my-zsh
 zplug plugins/ubuntu, from:oh-my-zsh, if:"[[ $OSTYPE == *linux* ]]"
 zplug plugins/yarn, from:oh-my-zsh
 zplug plugins/zsh_reload, from:oh-my-zsh
