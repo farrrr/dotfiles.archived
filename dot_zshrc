@@ -1,5 +1,7 @@
-source ~/.zplug/init.zsh
+# .. vim: syntax:zsh:foldmarker=[[[,]]]:foldmethod=marker
 
+
+source ~/.zplug/init.zsh
 
 ## Plugins
 zplug "plugins/git", from:oh-my-zsh
