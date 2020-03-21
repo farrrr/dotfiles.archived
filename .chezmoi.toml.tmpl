@@ -1,11 +1,11 @@
 {{- $name := promptString "Name" -}}
 {{- $email := promptString "Email" -}}
-{{- $github.user := promptString "Github Username" -}}
+{{- $github_user := promptString "Github Username" -}}
 [sourceVCS]
     autoCommit = true
     autoPush = true
 [data]
     name = "{{ $name }}"
     email = "{{ $email }}"
-    github.user = "{{ $github.user }}"
+    github.user = "{{ $github_user }}"
 
