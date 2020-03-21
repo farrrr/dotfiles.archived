@@ -1,13 +1,66 @@
-# .. vim: syntax:zsh:foldmarker=[[[,]]]:foldmethod=marker
+# .. vim: syntax=zsh:foldmarker=[[[,]]]:foldmethod=marker
 
+# functions [[[
+# Add pathmunge utility function 
+pathmunge () {
+  if ! echo $PATH | grep -E -q "(^|:)$1($|:)" ; then
+    if [ "$2" = "before" ] ; then
+      PATH=$1:$PATH
+    else
+      PATH=$PATH:$1
+    fi
+  fi
+}
+# ]]]
+
+# Plugins Config [[[
+# plugins/ssh-agent [[[
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+zstyle :omz:plugins:ssh-agent identities id_rsa_farrrr id_rsa_github google_compute_engine
+zstyle :omz:plugins:ssh-agent lifetime 24h
+# ]]]
+
+# plugins/tmux [[[
+ZSH_TMUX_FIXTERM=true
+ZSH_TMUX_ITERM2=true
+# ]]]
+# ]]]
 
 source ~/.zplug/init.zsh
 
-## Plugins
-zplug "plugins/git", from:oh-my-zsh
+# Plugins [[[
 
-# p10k
-zplug "romkatv/powerlevel10k", as:theme, depth:1
+# oh-my-zsh [[[
+zplug plugins/git, from:oh-my-zsh
+zplug plugins/aws, from:oh-my-zsh
+zplug plugins/colored-man-pages, from:oh-my-zsh
+zplug plugins/colorize, from:oh-my-zsh
+zplug plugins/command-not-found, from:oh-my-zsh
+zplug plugins/common-aliases, from:oh-my-zsh
+zplug plugins/docker, from:oh-my-zsh
+zplug plugins/docker-compose, from:oh-my-zsh
+zplug plugins/encode64, from:oh-my-zsh
+zplug plugins/extract, from:oh-my-zsh
+zplug plugins/gcloud, from:oh-my-zsh
+zplug plugins/gradle, from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
+zplug plugins/npm, from:oh-my-zsh
+zplug plugins/osx, from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
+zplug plugins/pod, from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
+zplug plugins/react-native, from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
+zplug plugins/ssh-agent, from:oh-my-zsh
+zplug plugins/sudo, from:oh-my-zsh
+zplug plugins/supervisor, from:oh-my-zsh
+zplug plugins/tmux, from:oh-my-zsh
+zplug plugins/ubuntu, from:oh-my-zsh, if:"[[ $OSTYPE == *linux* ]]"
+zplug plugins/yarn, from:oh-my-zsh
+zplug plugins/zsh_reload, from:oh-my-zsh
+# ]]]
+
+# themes [[[
+zplug romkatv/powerlevel10k, as:theme, depth:1
+# ]]]
+
+# ]]]
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
