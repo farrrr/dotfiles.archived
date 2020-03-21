@@ -81,4 +81,4 @@ fi
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Then, source plugins and add commands to $PATH
-zplug load --verbose
+zplug load #--verbose
