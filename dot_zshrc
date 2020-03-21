@@ -2,6 +2,8 @@ source ~/.zplug/init.zsh
 
 
 ## Plugins
+zplug "plugins/git", from:oh-my-zsh
+
 # p10k
 zplug "romkatv/powerlevel10k", as:theme, depth:1
 
