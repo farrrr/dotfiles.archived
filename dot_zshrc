@@ -62,6 +62,12 @@ zplug zsh-users/zsh-autosuggestions
 zplug zsh-users/zsh-completions
 # ]]]
 
+# customize [[[
+zplug ~/.myzsh/plugins/common-aliases, from:local
+zplug ~/.myzsh/plugins/farenv, from:local
+zplug ~/.myzsh/plugins/android, from:local, if:"[[ $OSTYPE == *darwin* ]]"
+# ]]]
+
 # themes [[[
 zplug romkatv/powerlevel10k, as:theme, depth:1
 # ]]]
