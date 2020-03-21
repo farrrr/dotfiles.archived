@@ -21,8 +21,6 @@ zstyle :omz:plugins:ssh-agent lifetime 24h
 # ]]]
 
 # plugins/tmux [[[
-ZSH_TMUX_FIXTERM=true
-ZSH_TMUX_ITERM2=true
 # ]]]
 # ]]]
 
