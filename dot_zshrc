@@ -20,8 +20,6 @@ zstyle :omz:plugins:ssh-agent identities id_rsa_farrrr id_rsa_github google_comp
 zstyle :omz:plugins:ssh-agent lifetime 24h
 # ]]]
 
-# plugins/tmux [[[
-# ]]]
 # ]]]
 
 source ~/.zplug/init.zsh
