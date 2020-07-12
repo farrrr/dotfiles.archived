@@ -1,4 +1,5 @@
 #=============================================================================
+# vim: foldmarker=[[[,]]]:foldmethod=marker
 # dark_powered.toml --- dark powered configuration example for SpaceVim
 # Copyright (c) 2016-2017 Wang Shidong & Contributors
 # Author: Wang Shidong < wsdjeg at 163.com >
@@ -11,132 +12,214 @@
   # Disable guicolors in basic mode, many terminal do not support 24bit
   # true colors
   enable_guicolors = true
-  disabled_plugins = []
-  enable_gcm = false
-  relativenumber = false
+  # Automatic Update
+  automatic_update = true
+  # disabled plugins
+  disabled_plugins = ['cscope', 'ctrlp', 'ctrlspace', 'debug']
   bootstrap_before = 'myspacevim#before'
   bootstrap_after = 'myspacevim#after'
-  autocomplete_method = 'deoplete'
-  
-  # layer: checkers
+  filetree_direction = 'left'
+  relativenumber = false
+ 
+
+  ## Layers Options [[[
+  # autocomplete [[[
+  autocomplete_method = "coc"
+  # ]]]
+
+  # checkers [[[
   enable_neomake = false
   enable_ale = true
+  lint_on_the_fly = true
+  # ]]]
 
-  # layer: chinese
-  vim_help_language = "cn"
+  # chinese [[[
+  # vim_help_language = "cn"
+  # ]]]
 
-  # layer: colorscheme
+  # colorscheme [[[
   # set spacevim theme. by default colorscheme layer is not loaded,
   # if you want to use more colorscheme, please load the colorscheme
   # layer
   colorscheme = "onedark"
   colorscheme_bg = "dark"
+  # ]]]
 
-  # layer: core#statusline
-  # 设置状态栏上分割符号形状，如果字体安装失败，可以将值设为 "nil" 以禁用分割符号，
-  # 分割符包括以下几种 "arrow", "curve", "slant", "fire", "nil"，默认为箭头 "arrow"
-  # 设置活动窗口状态栏上的分割符号形状
-  statusline_separator = "arrow"
-  # 设置非活动窗口状态栏上的分割符号形状
-  statusline_inactive_separator = "arrow"
+  # core#statusline [[[
   # Disable statusline separator, if you want to use other value, please
   # install nerd fonts
-  # 设置顶部标签列表序号类型，有以下五种类型，分别是 0 - 4
+  statusline_separator = "arrow"
+  statusline_inactive_separator = "arrow"
+  # Set SpaceVim buffer index type, default is 4.
+  # types:
   # 0: 1 ➛ ➊
   # 1: 1 ➛ ➀
   # 2: 1 ➛ ⓵
   # 3: 1 ➛ ¹
   # 4: 1 ➛ 1
   buffer_index_type = 1
-  # 是否在状态栏上显示当前模式，默认情况下，不显示 Normal/Insert 等
+  # Enable/Disable show mode on statusline
   enable_statusline_mode = false
+  # ]]]
 
-  # layer: core#tabline
-  enable_tabline_filetype_icon = true
+  # core#tabline [[[
+  enable_tabline_ft_icon = true
+  # ]]]
 
-  # layer: core
-  filemanager = "nerdtree"
+  # core [[[
+  filemanager = "defx"
+  # ]]]
 
-
-# Enable VersionControl
-[[layers]]
-  name = 'VersionControl'
+  ## ]]]
+  
 
 # Enable autocomplete layer
+# Layers: autocomplete [[[
 [[layers]]
   name = 'autocomplete'
-  auto_completion_return_key_behavior = "smart"
+  auto_completion_return_key_behavior = "complete"
   auto_completion_tab_key_behavior = "smart"
+# ]]]
 
+# Layers: checkers [[[  
 [[layers]]
   name = 'checkers'
-  lint_on_the_fly = true
+# ]]]
 
+# Layers: colorschemes [[[
 [[layers]]
-  name = 'chinese'
+  name = "colorscheme"
+# ]]]
 
+# Layers: core#statusline [[[
 [[layers]]
-  name = 'colorscheme'
+  name = "core#statusline"
+# ]]]
 
+# Layers: core [[[
 [[layers]]
   name = 'core'
   filetree_show_hidden = true
+# ]]]
 
+# Layers: format [[[
 [[layers]]
   name = 'format'
+# ]]]
 
+# Layers: git [[[
 [[layers]]
   name = 'git'
+  git-plugin = 'gina'
+# ]]]
 
+# Layers: lang#dockerfile [[[
 [[layers]]
   name = 'lang#dockerfile'
+# ]]]
 
+# Layers: lang#extra [[[
 [[layers]]
-  name = 'lang#go'
+  name = 'lang#extra'
+# ]]]
 
+# Layers: lang#graphql [[[
+[[layers]]
+  name = 'lang#graphql'
+# ]]]
+
+# Layers: lang#html [[[
 [[layers]]
   name = 'lang#html'
+# ]]]
 
+# Layers: lang#java [[[
+[[layers]]
+  name = 'lang#java'
+# ]]]
+
+# Layers: lang#javascript [[[
 [[layers]]
   name = 'lang#javascript'
   auto_fix = true
   enable_flow_syntax = false
+# ]]]
 
+# Layers: lang#markdown [[[
+[[layers]]
+  name = 'lang#markdown'
+# ]]]
+
+# Layers: lang#php [[[
 [[layers]]
   name = 'lang#php'
+# ]]]
 
+# Layers: lang#powershell [[[
+[[layers]]
+  name = 'lang#powershell'
+# ]]]
+
+# Layers: lang#python [[[
+[[layers]]
+  name = 'lang#python'
+# ]]]
+
+# Layers: lang#sh [[[
+[[layers]]
+  name = 'lang#sh'
+# ]]]
+
+# Layers: lang#typescript [[[
 [[layers]]
   name = 'lang#typescript'
+# ]]]
 
-[[layers]]
-  name = 'lang#vim'
-
+# Layers: lang#vue [[[
 [[layers]]
   name = 'lang#vue'
+# ]]]
 
+# Layers: go [[[
+[[layers]]
+  name = 'lang#go'
+# ]]]
+
+# Layers: lsp [[[
 [[layers]]
   name = 'lsp'
-  filetypes = [
-    'css',
-    'html',
-    'javascript',
-    'php',
-    'sh',
-    'typescript',
-    'vue'
-  ]
+# ]]]
 
+# Layers: VersionControl [[[
+[[layers]]
+  name = 'VersionControl'
+# ]]]
+
+# Layers: shell [[[
 [[layers]]
   name = 'shell'
   default_position = 'bottom'
   default_height = 30
+# ]]]
 
+# Layers: sudo [[[
 [[layers]]
   name = 'sudo'
+# ]]]
 
+# Layers: tmux [[[
 [[layers]]
   name = 'tmux'
+# ]]]
 
+# Layers: tools [[[
+[[layers]]
+  name = 'tools'
+# ]]]
+
+# Layers: ui [[[
 [[layers]]
   name = 'ui'
+# ]]]
+
 

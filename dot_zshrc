@@ -14,7 +14,7 @@ pathmunge () {
 # ]]]
 
 # Plugins Config [[[
-# plugins/ssh-agent [[[
+# ssh-agent [[[
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 zstyle :omz:plugins:ssh-agent identities id_rsa_farrrr id_rsa_github google_compute_engine
 zstyle :omz:plugins:ssh-agent lifetime 24h
@@ -22,12 +22,11 @@ zstyle :omz:plugins:ssh-agent lifetime 24h
 
 # ]]]
 
-source ~/.zplug/init.zsh
+source $(brew --prefix)/opt/zplug/init.zsh
 
 # Plugins [[[
 
 # oh-my-zsh [[[
-zplug plugins/git, from:oh-my-zsh
 zplug plugins/aws, from:oh-my-zsh
 zplug plugins/colored-man-pages, from:oh-my-zsh
 zplug plugins/colorize, from:oh-my-zsh
@@ -38,6 +37,7 @@ zplug plugins/docker-compose, from:oh-my-zsh
 zplug plugins/encode64, from:oh-my-zsh
 zplug plugins/extract, from:oh-my-zsh
 zplug plugins/gcloud, from:oh-my-zsh
+zplug plugins/git, from:oh-my-zsh
 zplug plugins/gradle, from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
 zplug plugins/npm, from:oh-my-zsh
 zplug plugins/osx, from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
