@@ -1,6 +1,7 @@
 {{- $name := promptString "Name" -}}
 {{- $email := promptString "Email" -}}
 {{- $github_user := promptString "Github Username" -}}
+{{- $zplug_home := promptString "ZPLUG_HOME directory" -}}
 [sourceVCS]
     autoCommit = true
     autoPush = true
@@ -8,4 +9,5 @@
     name = "{{ $name }}"
     email = "{{ $email }}"
     github.user = "{{ $github_user }}"
+    zplug.home = "{{ $zplug_home }}"
 
