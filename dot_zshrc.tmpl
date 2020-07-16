@@ -22,7 +22,11 @@ zstyle :omz:plugins:ssh-agent lifetime 24h
 
 # ]]]
 
-source {{ .zplug.home }}/init.zsh
+{{ if eq .chezmoi.os "darwin" -}}
+source $(brew --prefix)/opt/zplug/init.zsh
+{{ else -}}
+source $HOME/.zplug/init.zsh
+{{ end -}}
 
 # Plugins [[[
 
